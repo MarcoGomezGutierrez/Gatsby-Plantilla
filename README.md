@@ -12,8 +12,6 @@
 
 ## 🚀 Quick start
 
-Esto es el desarrollo de pruebas.
-
 1.  **Install node_modules.**
 
     ``` 
