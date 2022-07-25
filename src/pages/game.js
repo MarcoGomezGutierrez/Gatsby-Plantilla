@@ -3,30 +3,51 @@ import * as style from "../styles/index.module.css"
 import * as Game from "../styles/game.module.css"
 import * as ButtonStyle from "../styles/button.module.css"
 import ButtonPath from "../components/buttonPath.js"
-import ButtonAction from "../components/buttonAction.js"
 import Header from "../components/Header.js"
 
 
 // markup
 const GamePage = () => {
 
-  const [x, setX] = useState(1);
-  const [y, setY] = useState(1);
+  const [gameWidth, setGameWidth] = useState(parseInt(100));
+  const [gameHeight, setGameHeight] = useState(parseInt(100));
+
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+
+  document.addEventListener("keydown", function(event){
+    if (event.key === "ArrowRight") if (x + steps <= gameWidth - 10) setX(x + steps)
+    if (event.key === "ArrowLeft") if (x - steps >= 0) setX(x - steps)
+    if (event.key === "ArrowDown") if (y + steps <= gameHeight - 20) setY(y + steps)
+    if (event.key === "ArrowUp") if (y - steps >= 0) setY(y - steps)
+  })
+
+  const steps = 5;
 
   function derecha() {
-    if (x + 5 <= 91) setX(x + 5)
+    if (x + steps <= gameWidth - 10) setX(x + steps)
   }
 
   function izquierda () {
-    if (x - 5 >= 1) setX(x - 5)
+    if (x - steps >= 0) setX(x - steps)
   }
 
   function arriba() {
-    setY(y - 5)
+    if (y - steps >= 0) setY(y - steps)
   }
 
   function abajo () {
-    setY(y + 5)
+    if (y + steps <= gameHeight - 20) setY(y + steps)
+  }
+
+  function save() {
+    var width = document.getElementById('1').value;
+    var height = document.getElementById('2').value;
+    setGameWidth(parseInt(width))
+    setGameHeight(parseInt(height))
+    setX(0)
+    setY(0)
+    console.log(`Width: ${gameWidth}, Height: ${gameHeight}`)
   }
 
   const position = {
@@ -34,10 +55,15 @@ const GamePage = () => {
     top: y,
   }
 
+  const dimensions = {
+    width: gameWidth,
+    height: gameHeight,
+  }
+
   return (
     <main className={style.indexContainer}>
       <Header headerText="GAME"/>
-      <div className={Game.container}><div className={Game.cursor} style={position}>+</div></div>
+      <div className={Game.container}  style={dimensions}><div className={Game.cursor} style={position}>+</div></div>
       <div className={style.navbar}>
         <ButtonPath text="Return to Index Page" direction="../"/> 
         <div className={Game.rowsContainer}>
@@ -48,7 +74,9 @@ const GamePage = () => {
         </div>
         <div>X: {x}</div>
         <div>Y: {y}</div>
-        
+        <button className={`${ButtonStyle.button} ${ButtonStyle.button1}`} onClick={save}>Save</button>
+        <p>Width: <input id="1" type="number" name="width" required minLength="4" maxLength="8" size="10"/></p>
+        <p>Height: <input id="2" type="number" name="height" required minLength="4" maxLength="8" size="10"/></p>
       </div>
     </main>
     

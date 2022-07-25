@@ -15,6 +15,7 @@
 
 .navbar {
     display: flex;
+    margin: 10px;
 	flex-direction: row-reverse;
 	flex-wrap: nowrap;
 	justify-content: flex-end;
