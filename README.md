@@ -44,3 +44,10 @@
     - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
 
     - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+
+5. **Colors**
+    - [Palete Colors](https://coolors.co/)
+    - [HTML Colors](https://htmlcolorcodes.com/es/)
+
+6. **Animations**
+    - [Animista](https://animista.net/)
