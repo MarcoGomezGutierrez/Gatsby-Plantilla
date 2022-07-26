@@ -9,8 +9,8 @@ import Header from "../components/Header.js"
 // markup
 const GamePage = () => {
 
-  const [gameWidth, setGameWidth] = useState(parseInt(100));
-  const [gameHeight, setGameHeight] = useState(parseInt(100));
+  const [gameWidth, setGameWidth] = useState(parseInt(500));
+  const [gameHeight, setGameHeight] = useState(parseInt(500));
 
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
@@ -20,7 +20,7 @@ const GamePage = () => {
 
   const [points, setPoints] = useState(0);
 
-  const steps = 5;
+  const steps = 10;
 
 
   const leftRef = useRef(null);
@@ -128,12 +128,16 @@ const GamePage = () => {
   }
 
   const positionCursor = {
+    width: steps,
+    height: steps,
     left: x,
     top: y,
     backgroundColor: "lightblue",
   }
 
   const positionApple = {
+    width: steps,
+    height: steps,
     left: appleX,
     top: appleY,
     backgroundColor: "red",
