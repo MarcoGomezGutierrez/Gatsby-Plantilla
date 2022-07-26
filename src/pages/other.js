@@ -7,9 +7,9 @@ import Header from "../components/Header"
 // markup
 const OtherPage = () => {
   return (
-    <main className={style.indexContainer}>
-      <Header headerText="OTHER PAGE"/>
-      <p className={style.p}>El archivo global.css nos sirve para configurar un estilo global para toda la páginas de nuestro proyecto. 
+    <main>
+      <Header headerText="INFO PAGE"/>
+      <p className={style.p}>El archivo "global.css" nos sirve para configurar un estilo global para toda la páginas de nuestro proyecto. 
         De estas forma para que Gatsby lo aplique debe de haber un archivo en la raiz de nuestro proyecto llamado "gatsby-browser.js" de esta forma y 
         poniendo en la consola el comando siguiente: 
       </p>

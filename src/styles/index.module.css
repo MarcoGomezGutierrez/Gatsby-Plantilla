@@ -8,7 +8,7 @@
 }
 
 .p {
-    color: white;
+    color: rgb(24, 23, 23);
     width: 1200px;
     text-align: justify;
 }
@@ -25,9 +25,9 @@
 
 .console {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: white;
+    color: rgb(165, 165, 165);
     font-size: 20px;
-    background-color: gray;
+    background-color: rgb(24, 23, 23);
     width: 500px;
     align-content: center;
     text-align: left;

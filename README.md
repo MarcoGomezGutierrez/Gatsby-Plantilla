@@ -25,13 +25,16 @@
     $ npm run develop
     ```
 
+
 3.  **Open the code and start customizing!**
 
     ```
     - localhost:8000
     ```
 
+
 4.  **Learn more**
+
 
     - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
 
@@ -45,9 +48,21 @@
 
     - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
 
+
 5. **Colors**
+
     - [Palete Colors](https://coolors.co/)
     - [HTML Colors](https://htmlcolorcodes.com/es/)
 
+
 6. **Animations**
+
     - [Animista](https://animista.net/)
+
+
+7. **Git**
+
+    -Traer todo lo subido de un repositorio.
+    ```
+    $ git pull https://github.com/MarcoGomezGutierrez/Gatsby-Plantilla.git Formacion-1
+    ```

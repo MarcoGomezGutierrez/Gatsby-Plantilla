@@ -19,14 +19,14 @@ const IndexPage = () => {
   }
 
   return (
-    <main className={style.indexContainer}>
+    <main>
       <Header headerText="INDEX"/>
       <div className={style.navbar}>
         <ButtonPath text="Go to other page" direction="/other"/> 
         <ButtonPath text="Go to game page" direction="/game"/> 
-        <ButtonAction text="+" onClick={sumar}/>
-        <p>{count}</p>
         <ButtonAction text="-" onClick={restar}/>
+        <p>{count}</p>
+        <ButtonAction text="+" onClick={sumar}/>
       </div>
     </main>
     

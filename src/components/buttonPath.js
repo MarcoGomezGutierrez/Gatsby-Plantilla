@@ -5,7 +5,7 @@ import { Link } from 'gatsby'
 // markup
 const ButtonPath = (props) => {
   return (
-    <button className={`${style.button} ${style.button1}`}>
+    <button className={style.button}>
         <Link to={props.direction} className={style.p}>{props.text}</Link>
     </button>
   )

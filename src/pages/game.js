@@ -6,22 +6,36 @@ import ButtonPath from "../components/buttonPath.js"
 import Header from "../components/Header.js"
 
 
+class Tree {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+
 // markup
 const GamePage = () => {
 
-  const [gameWidth, setGameWidth] = useState(parseInt(500));
-  const [gameHeight, setGameHeight] = useState(parseInt(500));
+  const [gameWidth, setGameWidth] = useState(parseInt(40));
+  const [gameHeight, setGameHeight] = useState(parseInt(40));
 
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
+
+  const steps = 10;
+
+  const trees = [
+    new Tree(parseInt(0), parseInt(10)),
+    new Tree(parseInt(20), parseInt(10)),
+    new Tree(parseInt(30), parseInt(0)),
+    new Tree(parseInt(20), parseInt(30)),
+  ]
 
   const [appleX, setAppleX] = useState(20);
   const [appleY, setAppleY] = useState(30);
 
   const [points, setPoints] = useState(0);
-
-  const steps = 10;
-
 
   const leftRef = useRef(null);
   const rightRef = useRef(null);
@@ -44,77 +58,102 @@ const GamePage = () => {
 
   useEffect(() => {
     const keyDownCallBack = function(event)  {
-      switch(event.keyCode) {
-        case 39:
-          rightRef.current.style.background = 'white';
-          derecha();
-          break;
-        case 37:
-          leftRef.current.style.background = 'white';
-          izquierda();
-          break;
-        case 40:
-          downRef.current.style.background = 'white';
-          abajo();
-          break;
-        case 38:
-          upRef.current.style.background = 'white';
-          arriba();
-          break;
+      var key = event.keyCode;
+      if (key === 39 || key === 68) {
+        rightRef.current.style.background = '#7863EA';
+        derecha();
+      } else if (key === 37 || key === 65) {
+        leftRef.current.style.background = '#7863EA';
+        izquierda();
+      } else if (key === 40 || key === 83) {
+        downRef.current.style.background = '#7863EA';
+        abajo();
+      } else if (key === 38 || key === 87) {
+        upRef.current.style.background = '#7863EA';
+        arriba();
       }
     }
     document.addEventListener("keydown", keyDownCallBack);
       
     return () => document.removeEventListener("keydown", keyDownCallBack);
-  }, [x, y]);
+  });
 
   useEffect(() => {
     const keyDownCallBack = function(event)  {
-      switch(event.keyCode) {
-        case 39:
-          rightRef.current.style.background = '#1c0c74';
-          break;
-        case 37:
-          leftRef.current.style.background = '#1c0c74';
-          break;
-        case 40:
-          downRef.current.style.background = '#1c0c74';
-          break;
-        case 38:
-          upRef.current.style.background = '#1c0c74';
-          break;
+      var key = event.keyCode;
+      if (key === 39 || key === 68) {
+        rightRef.current.style.background = '#1c0c74';
+      } else if (key === 37 || key === 65) {
+        leftRef.current.style.background = '#1c0c74';
+      } else if (key === 40 || key === 83) {
+        downRef.current.style.background = '#1c0c74';
+      } else if (key === 38 || key === 87) {
+        upRef.current.style.background = '#1c0c74';
       }
     }
     document.addEventListener("keyup", keyDownCallBack);
       
     return () => document.removeEventListener("keyup", keyDownCallBack);
-  }, [x, y]);
+  });
   
   useEffect(() => {
     detectCollision();
-  }, [x, y, appleX, appleY, points]);
+  });
+
+  useEffect(() => {
+    reloat(); 
+  });
+
+  function reloat() {
+    if (appleX > gameWidth || appleY > gameHeight) {
+      generateApple();
+    } else if (detectTree(appleX, appleY)) generateApple();
+  }
 
   function detectCollision() {
-    if (x == appleX && y == appleY) {
+    if (x === appleX && y === appleY) {
       setPoints(points + 1);
       generateApple();
     }
   }
 
+  function detectTree(x, y) {
+    for (var i = 0; i < trees.length; i++) {
+      if (x === trees[i].x && y === trees[i].y) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   function derecha() {
-    if (x + steps <= gameWidth - steps) setX(x + steps)
+    if (x + steps <= gameWidth - steps) {
+      if (!detectTree(x + steps, y)) setX(x + steps)
+    }
   }
 
   function izquierda () {
-    if (x - steps >= 0) setX(x - steps)
+    if (x - steps >= 0) {
+      if (!detectTree(x - steps, y)) setX(x - steps)
+    }
   }
 
   function arriba() {
-    if (y - steps >= 0) setY(y - steps)
+    if (y - steps >= 0) {
+      if (!detectTree(x, y - steps)) setY(y - steps)
+    }
   }
 
   function abajo () {
-    if (y + steps <= gameHeight - steps) setY(y + steps)
+    if (y + steps <= gameHeight - steps) {
+      if (!detectTree(x, y + steps)) setY(y + steps)
+    }
+  }
+
+  function printTrees() {
+    for (var i = 0; i < trees.length; i++) {
+      <div className={Game.cursor} style={{width: steps, height: steps, backgroundColor: "green", left: trees[i].x, top: trees[i].y}}/>
+    }
   }
 
   function save() {
@@ -124,7 +163,7 @@ const GamePage = () => {
     setGameHeight(parseInt(height))
     setX(0)
     setY(0)
-    console.log(`Width: ${gameWidth}, Height: ${gameHeight}`)
+    generateApple();
   }
 
   const positionCursor = {
@@ -150,47 +189,51 @@ const GamePage = () => {
     minHeight: gameHeight,
   }
 
-
   return (
     <main >
+
       <Header headerText="GAME"/>
+
       <div className={style.navbar}>
         <p>Width: <input id="1" type="number" name="width" required minLength="4" maxLength="8" size="10"/></p>
         <p>Height: <input id="2" type="number" name="height" required minLength="4" maxLength="8" size="10"/></p>
-        <button className={`${ButtonStyle.button} ${ButtonStyle.button1}`} onClick={save}>Save</button>
+        <button className={ButtonStyle.button} onClick={save}>Save</button>
       </div>
       
       <div className={style.navbar}>
-      <p style={{fontWeight:700}}>Points: {points}</p>
-      <div className={Game.coint}>$</div>
+        <p style={{fontWeight:700}}>Points: {points}</p>
+        <div className={Game.coint}>$</div>
       </div>
-      
-
-
-
 
       <div className={Game.container}  style={dimensions}>
-        <div className={Game.cursor} style={positionCursor}></div>
-        <div className={Game.cursor} style={positionApple}></div>
+        <div className={Game.cursor} style={positionCursor}/>
+        <div className={Game.cursor} style={positionApple}/>
+        <div className={Game.cursor} style={{width: steps, height: steps, backgroundColor: "green", left: trees[0].x, top: trees[0].y}}/>
+        <div className={Game.cursor} style={{width: steps, height: steps, backgroundColor: "green", left: trees[1].x, top: trees[1].y}}/>
+        <div className={Game.cursor} style={{width: steps, height: steps, backgroundColor: "green", left: trees[2].x, top: trees[2].y}}/>
+        <div className={Game.cursor} style={{width: steps, height: steps, backgroundColor: "green", left: trees[3].x, top: trees[3].y}}/>
       </div>
+
       <div className={style.navbar}>
-         
         <div className={Game.rowsContainer}>
 
             <div className={Game.firstContainer}>
-              <button ref={upRef} onClick={arriba} className={`${ButtonStyle.button} ${ButtonStyle.button1} ${Game.arrow}`}>&#8593;</button>
+              <button ref={upRef} onClick={arriba} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8593;</button>
             </div>
             
             <div className={Game.secondContainer}>
-              <button ref={leftRef} onClick={izquierda} className={`${ButtonStyle.button} ${ButtonStyle.button1} ${Game.arrow}`}>&#8592;</button>
-              <button ref={downRef} onClick={abajo} className={`${ButtonStyle.button} ${ButtonStyle.button1} ${Game.arrow}`}>&#8595;</button>
-              <button ref={rightRef} onClick={derecha} className={`${ButtonStyle.button} ${ButtonStyle.button1} ${Game.arrow}`}>&#8594;</button>
+              <button ref={leftRef} onClick={izquierda} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8592;</button>
+              <button ref={downRef} onClick={abajo} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8595;</button>
+              <button ref={rightRef} onClick={derecha} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8594;</button>
             </div>
         </div>
-        {/* <div>X: {x}, Y: {y}, AppleX: {appleX}, AppleY: {appleY}</div> */}
-        
+         {/* <div>X: {x}, Y: {y}, AppleX: {appleX}, AppleY: {appleY}</div>  */}
       </div>
+
+      {/*<button onClick={console.log(`Esto es lo que veo en tree: X-> ${trees[0].x} Y-> ${trees[0].y}`)}>Muestrame</button>*/}
+
       <div style={{marginTop: "auto", alignSelf:"flex-end"}}><ButtonPath text="Return to Index Page" direction="../"/></div>
+
     </main>
     
   )

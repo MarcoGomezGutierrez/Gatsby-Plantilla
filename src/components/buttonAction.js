@@ -4,7 +4,7 @@ import * as style from "../styles/button.module.css"
 // markup
 const ButtonAction = (props) => {
   return (
-    <button className={`${style.button} ${style.button1}`} onClick={props.onClick}>{props.text}</button>
+    <button className={style.button} onClick={props.onClick}>{props.text}</button>
   )
 }
 
