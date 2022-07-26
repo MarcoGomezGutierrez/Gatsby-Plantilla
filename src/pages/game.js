@@ -6,27 +6,30 @@ import ButtonPath from "../components/buttonPath.js"
 import Header from "../components/Header.js"
 
 
-class Tree {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-}
+
 
 
 // markup
 const GamePage = () => {
 
-  const [gameWidth, setGameWidth] = useState(parseInt(40));
-  const [gameHeight, setGameHeight] = useState(parseInt(40));
 
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
+  class Tree {
+    constructor(x, y) {
+      this.x = parseInt(x);
+      this.y = parseInt(y);
+    }
+  }
+
+  const [gameWidth, setGameWidth] = useState(500);
+  const [gameHeight, setGameHeight] = useState(500);
+
+  const [x, setX] = useState(50);
+  const [y, setY] = useState(50);
 
   const steps = 10;
 
   const trees = [
-    new Tree(parseInt(0), parseInt(10)),
+    new Tree(parseInt(100), parseInt(300)),
     new Tree(parseInt(20), parseInt(10)),
     new Tree(parseInt(30), parseInt(0)),
     new Tree(parseInt(20), parseInt(30)),
@@ -54,6 +57,12 @@ const GamePage = () => {
 
   function RandomMinToMax (max) {
     return Math.floor(Math.random() * max);
+  }
+
+  function generateTrees() { /*Pasa algo cuando genero un Random, va mal por el Math.floor algo hace que me actualiza todo el rato la posición*/
+    for (var i = 0; i < 40; i++) {
+      trees.push(new Tree(multiple(RandomMinToMax(gameWidth - steps)), multiple(RandomMinToMax(gameHeight - steps))))
+    }
   }
 
   useEffect(() => {
@@ -151,9 +160,9 @@ const GamePage = () => {
   }
 
   function printTrees() {
-    for (var i = 0; i < trees.length; i++) {
-      <div className={Game.cursor} style={{width: steps, height: steps, backgroundColor: "green", left: trees[i].x, top: trees[i].y}}/>
-    }
+    return trees.map(function(tree) {
+      return <div className={Game.cursor} style={{width: steps, height: steps, backgroundColor: "green", left: tree.x, top: tree.y}}/>
+    });
   }
 
   function save() {
@@ -208,10 +217,9 @@ const GamePage = () => {
       <div className={Game.container}  style={dimensions}>
         <div className={Game.cursor} style={positionCursor}/>
         <div className={Game.cursor} style={positionApple}/>
-        <div className={Game.cursor} style={{width: steps, height: steps, backgroundColor: "green", left: trees[0].x, top: trees[0].y}}/>
-        <div className={Game.cursor} style={{width: steps, height: steps, backgroundColor: "green", left: trees[1].x, top: trees[1].y}}/>
-        <div className={Game.cursor} style={{width: steps, height: steps, backgroundColor: "green", left: trees[2].x, top: trees[2].y}}/>
-        <div className={Game.cursor} style={{width: steps, height: steps, backgroundColor: "green", left: trees[3].x, top: trees[3].y}}/>
+        {generateTrees()}
+        {printTrees()} {/*Pintar todos los arboles*/}
+        
       </div>
 
       <div className={style.navbar}>
