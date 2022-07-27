@@ -4,11 +4,13 @@ import * as Game from "../styles/game.module.css"
 import * as ButtonStyle from "../styles/button.module.css"
 import ButtonPath from "../components/buttonPath.js"
 import Header from "../components/Header.js"
+import Trees  from "./trees.js"
+
 
 
 // markup
 const GamePage = () => {
-
+  
   const [gameWidth, setGameWidth] = useState(parseInt(500));
   const [gameHeight, setGameHeight] = useState(parseInt(500));
 
@@ -22,11 +24,16 @@ const GamePage = () => {
 
   const steps = 10;
 
+  const [trees, setTrees] = useState([])/**Array de trees */
 
   const leftRef = useRef(null);
   const rightRef = useRef(null);
   const upRef = useRef(null);
   const downRef = useRef(null);
+
+  function getTreesFromChild(valor) {
+    setTrees(valor)
+  }
 
   function multiple(valor) {
     if ((valor % steps) === 0) return valor;
@@ -62,7 +69,7 @@ const GamePage = () => {
     document.addEventListener("keydown", keyDownCallBack);
       
     return () => document.removeEventListener("keydown", keyDownCallBack);
-  });
+  }, [derecha, izquierda, abajo, arriba, rightRef, leftRef, downRef, upRef]);
 
   useEffect(() => {
     const keyDownCallBack = function(event)  {
@@ -80,11 +87,30 @@ const GamePage = () => {
     document.addEventListener("keyup", keyDownCallBack);
       
     return () => document.removeEventListener("keyup", keyDownCallBack);
-  });
+  }, [rightRef, leftRef, downRef, upRef]);
   
   useEffect(() => {
     detectCollision();
-  });
+  }, [x, appleX, y, appleY]);
+
+  useEffect(() => {
+    reloat(); 
+  }, [appleX, appleY, gameWidth, gameHeight, trees]);
+
+  function reloat() {
+    if (appleX > gameWidth || appleY > gameHeight) {
+      generateApple();
+    } else if (detectTree(appleX, appleY)) generateApple();
+  }
+
+  function detectTree(x, y) {
+    for (var i = 0; i < trees.length; i++) {
+      if (x === trees[i].x && y === trees[i].y) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   function detectCollision() {
     if (x === appleX && y === appleY) {
@@ -94,19 +120,27 @@ const GamePage = () => {
   }
 
   function derecha() {
-    if (x + steps <= gameWidth - steps) setX(x + steps)
+    if (x + steps <= gameWidth - steps) {
+      if (!detectTree(x + steps, y)) setX(x + steps)
+    }
   }
 
   function izquierda () {
-    if (x - steps >= 0) setX(x - steps)
+    if (x - steps >= 0) {
+      if (!detectTree(x - steps, y)) setX(x - steps)
+    }
   }
 
   function arriba() {
-    if (y - steps >= 0) setY(y - steps)
+    if (y - steps >= 0) {
+      if (!detectTree(x, y - steps)) setY(y - steps)
+    }
   }
 
   function abajo () {
-    if (y + steps <= gameHeight - steps) setY(y + steps)
+    if (y + steps <= gameHeight - steps) {
+      if (!detectTree(x, y + steps)) setY(y + steps)
+    }
   }
 
   function save() {
@@ -142,7 +176,6 @@ const GamePage = () => {
     minHeight: gameHeight,
   }
 
-
   return (
     <main >
       <Header headerText="GAME"/>
@@ -157,13 +190,10 @@ const GamePage = () => {
       <div className={Game.coint}>$</div>
       </div>
       
-
-
-
-
       <div className={Game.container}  style={dimensions}>
         <div className={Game.cursor} style={positionCursor}></div>
         <div className={Game.cursor} style={positionApple}></div>
+        <Trees getTreesFromChild={getTreesFromChild}/>
       </div>
       <div className={style.navbar}>
          
