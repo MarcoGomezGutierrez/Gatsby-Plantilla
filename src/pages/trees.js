@@ -4,13 +4,15 @@ class Tree {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.durability = 3;
     }
 }
 
 /* Este componente de React se encarga de Generar el número de árboles que especifiques por parametro*/
 const Trees = (props) => {
 
-    const numTrees = 100;
+    const numTrees = 500;
+
 
     function addTrees () {
         const trees = []

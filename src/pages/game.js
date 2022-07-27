@@ -10,7 +10,7 @@ import Trees  from "./trees.js"
 // markup
 const GamePage = () => {
   
-  const [gameWidth, setGameWidth] = useState(parseInt(500));
+  const [gameWidth, setGameWidth] = useState(parseInt(1000));
   const [gameHeight, setGameHeight] = useState(parseInt(500));
 
   const [x, setX] = useState(0);
@@ -110,6 +110,8 @@ const GamePage = () => {
   function detectTree(x, y) {
     for (var i = 0; i < trees.length; i++) {
       if (x === trees[i].x && y === trees[i].y) {
+        if(trees[i].durability > 0) trees[i].durability --;
+        else setTrees(trees.splice(i, 1))
         return true;
       }
     }
@@ -194,15 +196,18 @@ const GamePage = () => {
       </div>
       
       <div className={style.navbar}>
-      <p style={{fontWeight:700}}>Points: {points}</p>
+      <p style={{fontWeight:700, fontSize: 20}}>Points: {points}</p>
       <div className={Game.coint}>$</div>
       </div>
       
+      {/*Contenedor del Juego */}
       <div className={Game.container}  style={dimensions}>
         <div className={Game.cursor} style={positionCursor}></div>
         <div className={Game.cursor} style={positionApple}></div>
         <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} width={gameWidth} height={gameHeight} steps={steps}/>
       </div>
+      {/*-------------------------------------------------*/}
+
       <div className={style.navbar}>
          
         <div className={Game.rowsContainer}>
