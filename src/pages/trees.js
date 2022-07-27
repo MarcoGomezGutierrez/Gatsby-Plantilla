@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react"
 
-
 class Tree {
     constructor(x, y) {
         this.x = x;
@@ -8,24 +7,14 @@ class Tree {
     }
 }
 
-const PrintTree = ({x, y}) => {
-    return (
-        <div style={{
-            position: "absolute", 
-            width: 10, 
-            height: 10, 
-            backgroundColor: "green", 
-            left: x, 
-            top: y
-        }}/>
-    )
-}
-
+/* Este componente de React se encarga de Generar el número de árboles que especifiques por parametro*/
 const Trees = (props) => {
+
+    const numTrees = 100;
 
     function addTrees () {
         const trees = []
-        for (var i = 0; i < 100; i++) {
+        for (var i = 0; i < numTrees; i++) {
             trees.push(
                 new Tree(
                     props.multiple(props.RandomMinToMax(props.width - props.steps)), /* X */
@@ -38,6 +27,7 @@ const Trees = (props) => {
     // eslint-disable-next-line
     const [trees, setTrees] = useState(() => addTrees()) /**Array de trees */
 
+    //Le devuelve al Padre(game.js) el objeto trees con las posiciones de sus arboles, una copia del Array
     function setDataToParent(tree) {
         props.getTreesFromChild(tree)
     }
@@ -46,6 +36,21 @@ const Trees = (props) => {
         setDataToParent(trees)
         // eslint-disable-next-line
     }, [setDataToParent])
+
+
+    /*Estilo de los árboles */
+    const PrintTree = ({x, y}) => {
+        return (
+            <div style={{
+                position: "absolute", 
+                width: props.steps, 
+                height: props.steps, 
+                backgroundColor: "green", 
+                left: x, 
+                top: y
+            }}/>
+        )
+    }
 
     return (
         <div>
