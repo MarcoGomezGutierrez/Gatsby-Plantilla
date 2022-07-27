@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+html {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to right, rgb(151, 255, 255), rgb(255, 255, 255));
+    color: rgb(29, 29, 29);
+    font-family: 'Poppins', sans-serif;
+}
+
+main {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
