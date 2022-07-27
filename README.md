@@ -66,3 +66,11 @@
     ```
     $ git pull https://github.com/MarcoGomezGutierrez/Gatsby-Plantilla.git Formacion-1
     ```
+
+8. **Deploy Local Server**
+
+  - Poner en el navegador, sea en móvil o ordenador, el siguiente ejemplo:
+  ```
+  192.168.1.0:8000
+  ```
+  - La IP:Puerto

@@ -4,46 +4,35 @@ import * as Game from "../styles/game.module.css"
 import * as ButtonStyle from "../styles/button.module.css"
 import ButtonPath from "../components/buttonPath.js"
 import Header from "../components/Header.js"
-
-
-
+import Trees  from "./trees.js"
 
 
 // markup
 const GamePage = () => {
+  
+  const [gameWidth, setGameWidth] = useState(parseInt(500));
+  const [gameHeight, setGameHeight] = useState(parseInt(500));
 
-
-  class Tree {
-    constructor(x, y) {
-      this.x = parseInt(x);
-      this.y = parseInt(y);
-    }
-  }
-
-  const [gameWidth, setGameWidth] = useState(500);
-  const [gameHeight, setGameHeight] = useState(500);
-
-  const [x, setX] = useState(50);
-  const [y, setY] = useState(50);
-
-  const steps = 10;
-
-  const trees = [
-    new Tree(parseInt(100), parseInt(300)),
-    new Tree(parseInt(20), parseInt(10)),
-    new Tree(parseInt(30), parseInt(0)),
-    new Tree(parseInt(20), parseInt(30)),
-  ]
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
 
   const [appleX, setAppleX] = useState(20);
   const [appleY, setAppleY] = useState(30);
 
   const [points, setPoints] = useState(0);
 
+  const steps = 10;
+  
+  const [trees, setTrees] = useState([])/**Array de trees */
+
   const leftRef = useRef(null);
   const rightRef = useRef(null);
   const upRef = useRef(null);
   const downRef = useRef(null);
+
+  function getTreesFromChild(valor) {
+    setTrees(valor)
+  }
 
   function multiple(valor) {
     if ((valor % steps) === 0) return valor;
@@ -57,12 +46,6 @@ const GamePage = () => {
 
   function RandomMinToMax (max) {
     return Math.floor(Math.random() * max);
-  }
-
-  function generateTrees() { /*Pasa algo cuando genero un Random, va mal por el Math.floor algo hace que me actualiza todo el rato la posición*/
-    for (var i = 0; i < 40; i++) {
-      trees.push(new Tree(multiple(RandomMinToMax(gameWidth - steps)), multiple(RandomMinToMax(gameHeight - steps))))
-    }
   }
 
   useEffect(() => {
@@ -83,9 +66,11 @@ const GamePage = () => {
       }
     }
     document.addEventListener("keydown", keyDownCallBack);
-      
+
     return () => document.removeEventListener("keydown", keyDownCallBack);
-  });
+
+  }, [derecha, izquierda, abajo, arriba, rightRef, leftRef, downRef, upRef]);
+
 
   useEffect(() => {
     const keyDownCallBack = function(event)  {
@@ -101,29 +86,25 @@ const GamePage = () => {
       }
     }
     document.addEventListener("keyup", keyDownCallBack);
-      
+
     return () => document.removeEventListener("keyup", keyDownCallBack);
-  });
+
+  }, [rightRef, leftRef, downRef, upRef]);
   
   useEffect(() => {
     detectCollision();
-  });
+    // eslint-disable-next-line
+  }, [x, appleX, y, appleY]);
 
   useEffect(() => {
     reloat(); 
-  });
+    // eslint-disable-next-line
+  }, [appleX, appleY, gameWidth, gameHeight, trees]);
 
   function reloat() {
     if (appleX > gameWidth || appleY > gameHeight) {
       generateApple();
     } else if (detectTree(appleX, appleY)) generateApple();
-  }
-
-  function detectCollision() {
-    if (x === appleX && y === appleY) {
-      setPoints(points + 1);
-      generateApple();
-    }
   }
 
   function detectTree(x, y) {
@@ -135,34 +116,39 @@ const GamePage = () => {
     return false;
   }
 
+  function detectCollision() {
+    if (x === appleX && y === appleY) {
+      setPoints(points + 1);
+      generateApple();
+    }
+  }
+
+  // eslint-disable-next-line
   function derecha() {
     if (x + steps <= gameWidth - steps) {
       if (!detectTree(x + steps, y)) setX(x + steps)
     }
   }
 
+  // eslint-disable-next-line
   function izquierda () {
     if (x - steps >= 0) {
       if (!detectTree(x - steps, y)) setX(x - steps)
     }
   }
 
+  // eslint-disable-next-line
   function arriba() {
     if (y - steps >= 0) {
       if (!detectTree(x, y - steps)) setY(y - steps)
     }
   }
 
+  // eslint-disable-next-line
   function abajo () {
     if (y + steps <= gameHeight - steps) {
       if (!detectTree(x, y + steps)) setY(y + steps)
     }
-  }
-
-  function printTrees() {
-    return trees.map(function(tree) {
-      return <div className={Game.cursor} style={{width: steps, height: steps, backgroundColor: "green", left: tree.x, top: tree.y}}/>
-    });
   }
 
   function save() {
@@ -172,7 +158,7 @@ const GamePage = () => {
     setGameHeight(parseInt(height))
     setX(0)
     setY(0)
-    generateApple();
+    console.log(`Width: ${gameWidth}, Height: ${gameHeight}`)
   }
 
   const positionCursor = {
@@ -200,29 +186,25 @@ const GamePage = () => {
 
   return (
     <main >
-
       <Header headerText="GAME"/>
-
       <div className={style.navbar}>
         <p>Width: <input id="1" type="number" name="width" required minLength="4" maxLength="8" size="10"/></p>
         <p>Height: <input id="2" type="number" name="height" required minLength="4" maxLength="8" size="10"/></p>
-        <button className={ButtonStyle.button} onClick={save}>Save</button>
+        <button className={`${ButtonStyle.button}`} onClick={save}>Save</button>
       </div>
       
       <div className={style.navbar}>
-        <p style={{fontWeight:700}}>Points: {points}</p>
-        <div className={Game.coint}>$</div>
+      <p style={{fontWeight:700}}>Points: {points}</p>
+      <div className={Game.coint}>$</div>
       </div>
-
+      
       <div className={Game.container}  style={dimensions}>
-        <div className={Game.cursor} style={positionCursor}/>
-        <div className={Game.cursor} style={positionApple}/>
-        {generateTrees()}
-        {printTrees()} {/*Pintar todos los arboles*/}
-        
+        <div className={Game.cursor} style={positionCursor}></div>
+        <div className={Game.cursor} style={positionApple}></div>
+        <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} width={gameWidth} height={gameHeight} steps={steps}/>
       </div>
-
       <div className={style.navbar}>
+         
         <div className={Game.rowsContainer}>
 
             <div className={Game.firstContainer}>
@@ -235,13 +217,10 @@ const GamePage = () => {
               <button ref={rightRef} onClick={derecha} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8594;</button>
             </div>
         </div>
-         {/* <div>X: {x}, Y: {y}, AppleX: {appleX}, AppleY: {appleY}</div>  */}
+        {/* <div>X: {x}, Y: {y}, AppleX: {appleX}, AppleY: {appleY}</div> */}
+        
       </div>
-
-      {/*<button onClick={console.log(`Esto es lo que veo en tree: X-> ${trees[0].x} Y-> ${trees[0].y}`)}>Muestrame</button>*/}
-
-      <div style={{marginTop: "auto", alignSelf:"flex-end"}}><ButtonPath text="Return to Index Page" direction="../"/></div>
-
+      <div className={Game.buttonReturn} style={{marginTop: "auto", alignSelf:"flex-end"}}><ButtonPath text="Return to Index Page" direction="../"/></div>
     </main>
     
   )
