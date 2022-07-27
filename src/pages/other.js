@@ -2,6 +2,7 @@ import * as React from "react"
 import * as style from "../styles/index.module.css"
 import ButtonPath from "../components/buttonPath.js"
 import Header from "../components/Header"
+import * as Game from "../styles/game.module.css"
 
 
 // markup
@@ -24,7 +25,7 @@ const OtherPage = () => {
         <br/> &nbsp;&nbsp;&nbsp;&nbsp; setCount &#40; count + 1 &#41; 
         <br/> &#125;   
       </div>
-      <ButtonPath text="Return to Index Page" direction="../"/>
+      <div className={Game.buttonReturn}  style={{marginTop: "auto", alignSelf:"flex-end"}}><ButtonPath text="Return to Index Page" direction="../"/></div>
     </main>
     
   )
