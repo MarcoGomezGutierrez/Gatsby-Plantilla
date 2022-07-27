@@ -51,26 +51,34 @@
 
 5. **Colors**
 
-    - [Palete Colors](https://coolors.co/)
-    - [HTML Colors](https://htmlcolorcodes.com/es/)
+      - [Palete Colors](https://coolors.co/)
+      - [HTML Colors](https://htmlcolorcodes.com/es/)
 
 
 6. **Animations**
 
-    - [Animista](https://animista.net/)
+      - [Animista](https://animista.net/)
 
 
 7. **Git**
 
-    -Traer todo lo subido de un repositorio.
-    ```
-    $ git pull https://github.com/MarcoGomezGutierrez/Gatsby-Plantilla.git Formacion-1
-    ```
+    - Traer todo lo subido de un repositorio.
+      ```
+      $ git pull https://github.com/MarcoGomezGutierrez/Gatsby-Plantilla.git Formacion-1
+      ```
 
 8. **Deploy Local Server**
 
-  - Poner en el navegador, sea en móvil o ordenador, el siguiente ejemplo:
-  ```
-  192.168.1.0:8000
-  ```
-  - La IP:Puerto
+    - Poner en el navegador, sea en móvil o ordenador, el siguiente ejemplo:
+      ```
+      192.168.1.0:8000
+      ```
+    - La IP:Puerto
+
+9. **Controls**
+
+    + "a" o "flecha izquierda" -> Mover jugador izquierda
+    + "w" o "flecha arriba" -> Mover jugador arriba
+    + "d" o "felcha derecha" -> Mover jugador derecha
+    + "s" o "felcha abajo" -> Mover jugador abajo
+    + "e" -> Picar madera(presionar tres veces).

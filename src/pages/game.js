@@ -16,10 +16,14 @@ const GamePage = () => {
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
 
+  const [directionX, setDirectionX] = useState(0)
+  const [directionY, setDirectionY] = useState(0)
+
   const [appleX, setAppleX] = useState(20);
   const [appleY, setAppleY] = useState(30);
 
   const [points, setPoints] = useState(0);
+  const [wood, setWood] = useState(0)
 
   const steps = 10;
   
@@ -83,14 +87,19 @@ const GamePage = () => {
         downRef.current.style.background = '#1c0c74';
       } else if (key === 38 || key === 87) {
         upRef.current.style.background = '#1c0c74';
+      } else if (key === 69) {
+        chopWood();
       }
+      console.log(key)
     }
+    
     document.addEventListener("keyup", keyDownCallBack);
 
     return () => document.removeEventListener("keyup", keyDownCallBack);
 
-  }, [rightRef, leftRef, downRef, upRef]);
+  }, [rightRef, leftRef, downRef, upRef, chopWood]);
   
+
   useEffect(() => {
     detectCollision();
     // eslint-disable-next-line
@@ -104,18 +113,34 @@ const GamePage = () => {
   function reloat() {
     if (appleX > gameWidth || appleY > gameHeight) {
       generateApple();
-    } else if (detectTree(appleX, appleY)) generateApple();
+    } else if (detectTree(appleX, appleY, false)) generateApple();
   }
 
-  function detectTree(x, y) {
+  function chopWood() { /**Método para picar madera */
+  console.log("X: " + directionX + " Y:" + directionY)
+    detectTree(directionX, directionY, true);
+  }
+
+
+  function detectTree(x, y, remove) {
     for (var i = 0; i < trees.length; i++) {
       if (x === trees[i].x && y === trees[i].y) {
-        if(trees[i].durability > 0) trees[i].durability --;
-        else setTrees(trees.splice(i, 1))
+        if (remove) {
+          deleteTree(i);
+        }
         return true;
       }
     }
     return false;
+  }
+
+  function deleteTree(index) {
+    if(trees[index].durability > 0) trees[index].durability --;
+      else {
+        console.log("delete")
+        setTrees(trees.splice(index, 1));
+        setWood(wood + 1);
+    }
   }
 
   function detectCollision() {
@@ -128,29 +153,37 @@ const GamePage = () => {
   // eslint-disable-next-line
   function derecha() {
     if (x + steps <= gameWidth - steps) {
-      if (!detectTree(x + steps, y)) setX(x + steps)
+      if (!detectTree(x + steps, y, false)) setX(x + steps)
     }
+    setDirectionX(x+steps);
+    setDirectionY(y);
   }
 
   // eslint-disable-next-line
   function izquierda () {
     if (x - steps >= 0) {
-      if (!detectTree(x - steps, y)) setX(x - steps)
+      if (!detectTree(x - steps, y, false)) setX(x - steps)
     }
+    setDirectionX(x-steps);
+    setDirectionY(y);
   }
 
   // eslint-disable-next-line
   function arriba() {
     if (y - steps >= 0) {
-      if (!detectTree(x, y - steps)) setY(y - steps)
+      if (!detectTree(x, y - steps, false)) setY(y - steps)
     }
+    setDirectionX(x);
+    setDirectionY(y-steps);
   }
 
   // eslint-disable-next-line
   function abajo () {
     if (y + steps <= gameHeight - steps) {
-      if (!detectTree(x, y + steps)) setY(y + steps)
+      if (!detectTree(x, y + steps, false)) setY(y + steps)
     }
+    setDirectionX(x);
+    setDirectionY(y+steps);
   }
 
   function save() {
@@ -196,8 +229,14 @@ const GamePage = () => {
       </div>
       
       <div className={style.navbar}>
-      <p style={{fontWeight:700, fontSize: 20}}>Points: {points}</p>
-      <div className={Game.coint}>$</div>
+        <div className={Game.pointsContainer}>
+          <p style={{fontWeight:700, fontSize: 20}}>{points}</p>
+          <div className={Game.coint}>$</div>
+        </div>
+        <div className={Game.pointsContainer}>
+          <p style={{fontWeight:700, fontSize: 20}}>{wood}</p>
+          <div className={Game.wood}/>
+        </div>
       </div>
       
       {/*Contenedor del Juego */}
