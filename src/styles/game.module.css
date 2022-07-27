@@ -52,3 +52,9 @@
 .cursor {
     position: absolute;
 }
+
+.buttonReturn {
+    position: absolute;
+    bottom: 0;
+    margin: 20px;
+}

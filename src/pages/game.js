@@ -68,6 +68,7 @@ const GamePage = () => {
     document.addEventListener("keydown", keyDownCallBack);
 
     return () => document.removeEventListener("keydown", keyDownCallBack);
+
   }, [derecha, izquierda, abajo, arriba, rightRef, leftRef, downRef, upRef]);
 
 
@@ -135,7 +136,7 @@ const GamePage = () => {
       if (!detectTree(x - steps, y)) setX(x - steps)
     }
   }
-  
+
   // eslint-disable-next-line
   function arriba() {
     if (y - steps >= 0) {
@@ -219,7 +220,7 @@ const GamePage = () => {
         {/* <div>X: {x}, Y: {y}, AppleX: {appleX}, AppleY: {appleY}</div> */}
         
       </div>
-      <div style={{marginTop: "auto", alignSelf:"flex-end"}}><ButtonPath text="Return to Index Page" direction="../"/></div>
+      <div className={Game.buttonReturn} style={{marginTop: "auto", alignSelf:"flex-end"}}><ButtonPath text="Return to Index Page" direction="../"/></div>
     </main>
     
   )
