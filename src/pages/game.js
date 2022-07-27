@@ -7,7 +7,6 @@ import Header from "../components/Header.js"
 import Trees  from "./trees.js"
 
 
-
 // markup
 const GamePage = () => {
   
@@ -23,7 +22,7 @@ const GamePage = () => {
   const [points, setPoints] = useState(0);
 
   const steps = 10;
-
+  
   const [trees, setTrees] = useState([])/**Array de trees */
 
   const leftRef = useRef(null);
@@ -67,9 +66,10 @@ const GamePage = () => {
       }
     }
     document.addEventListener("keydown", keyDownCallBack);
-      
+
     return () => document.removeEventListener("keydown", keyDownCallBack);
   }, [derecha, izquierda, abajo, arriba, rightRef, leftRef, downRef, upRef]);
+
 
   useEffect(() => {
     const keyDownCallBack = function(event)  {
@@ -85,16 +85,19 @@ const GamePage = () => {
       }
     }
     document.addEventListener("keyup", keyDownCallBack);
-      
+
     return () => document.removeEventListener("keyup", keyDownCallBack);
+
   }, [rightRef, leftRef, downRef, upRef]);
   
   useEffect(() => {
     detectCollision();
+    // eslint-disable-next-line
   }, [x, appleX, y, appleY]);
 
   useEffect(() => {
     reloat(); 
+    // eslint-disable-next-line
   }, [appleX, appleY, gameWidth, gameHeight, trees]);
 
   function reloat() {
@@ -119,24 +122,28 @@ const GamePage = () => {
     }
   }
 
+  // eslint-disable-next-line
   function derecha() {
     if (x + steps <= gameWidth - steps) {
       if (!detectTree(x + steps, y)) setX(x + steps)
     }
   }
 
+  // eslint-disable-next-line
   function izquierda () {
     if (x - steps >= 0) {
       if (!detectTree(x - steps, y)) setX(x - steps)
     }
   }
-
+  
+  // eslint-disable-next-line
   function arriba() {
     if (y - steps >= 0) {
       if (!detectTree(x, y - steps)) setY(y - steps)
     }
   }
 
+  // eslint-disable-next-line
   function abajo () {
     if (y + steps <= gameHeight - steps) {
       if (!detectTree(x, y + steps)) setY(y + steps)
@@ -193,7 +200,7 @@ const GamePage = () => {
       <div className={Game.container}  style={dimensions}>
         <div className={Game.cursor} style={positionCursor}></div>
         <div className={Game.cursor} style={positionApple}></div>
-        <Trees getTreesFromChild={getTreesFromChild}/>
+        <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} width={gameWidth} height={gameHeight} steps={steps}/>
       </div>
       <div className={style.navbar}>
          
