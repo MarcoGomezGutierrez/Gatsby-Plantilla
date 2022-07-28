@@ -10,23 +10,26 @@ import Trees  from "./trees.js"
 // markup
 const GamePage = () => {
   
+  const steps = 10;
+
   const [gameWidth, setGameWidth] = useState(parseInt(1000));
   const [gameHeight, setGameHeight] = useState(parseInt(500));
 
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
 
-  const [directionX, setDirectionX] = useState(0)
+  const [directionX, setDirectionX] = useState(1)
   const [directionY, setDirectionY] = useState(0)
 
-  const [appleX, setAppleX] = useState(20);
-  const [appleY, setAppleY] = useState(30);
+  const [headX, setHeadX] = useState(steps/2)
+  const [headY, setHeadY] = useState((steps /2 ) / 2)
+
+  const [appleX, setAppleX] = useState(multiple(RandomMinToMax(gameWidth - steps)));
+  const [appleY, setAppleY] = useState(multiple(RandomMinToMax(gameHeight - steps)));
 
   const [points, setPoints] = useState(0);
   const [wood, setWood] = useState(0)
 
-  const steps = 10;
-  
   const [trees, setTrees] = useState([])/**Array de trees */
 
   const leftRef = useRef(null);
@@ -73,11 +76,11 @@ const GamePage = () => {
 
     return () => document.removeEventListener("keydown", keyDownCallBack);
 
-  }, [derecha, izquierda, abajo, arriba, rightRef, leftRef, downRef, upRef]);
+  }, [x, y, steps, headX, headY, rightRef, leftRef, downRef, upRef, directionX, directionY, abajo, arriba, derecha, izquierda]);
 
 
   useEffect(() => {
-    const keyDownCallBack = function(event)  {
+    const keyUpCallBack = function(event)  {
       var key = event.keyCode;
       if (key === 39 || key === 68) {
         rightRef.current.style.background = '#1c0c74';
@@ -90,14 +93,13 @@ const GamePage = () => {
       } else if (key === 69) {
         chopWood();
       }
-      console.log(key)
     }
     
-    document.addEventListener("keyup", keyDownCallBack);
+    document.addEventListener("keyup", keyUpCallBack);
 
-    return () => document.removeEventListener("keyup", keyDownCallBack);
+    return () => document.removeEventListener("keyup", keyUpCallBack);
 
-  }, [rightRef, leftRef, downRef, upRef, chopWood]);
+  }, [rightRef, leftRef, downRef, upRef, directionX, directionY, trees, chopWood]);
   
 
   useEffect(() => {
@@ -117,7 +119,6 @@ const GamePage = () => {
   }
 
   function chopWood() { /**Método para picar madera */
-  console.log("X: " + directionX + " Y:" + directionY)
     detectTree(directionX, directionY, true);
   }
 
@@ -137,7 +138,6 @@ const GamePage = () => {
   function deleteTree(index) {
     if(trees[index].durability > 0) trees[index].durability --;
       else {
-        console.log("delete")
         setTrees(trees.splice(index, 1));
         setWood(wood + 1);
     }
@@ -155,8 +155,7 @@ const GamePage = () => {
     if (x + steps <= gameWidth - steps) {
       if (!detectTree(x + steps, y, false)) setX(x + steps)
     }
-    setDirectionX(x+steps);
-    setDirectionY(y);
+    rotatePlayer(x + steps, y, steps / 2, (steps / 2) / 2);
   }
 
   // eslint-disable-next-line
@@ -164,8 +163,7 @@ const GamePage = () => {
     if (x - steps >= 0) {
       if (!detectTree(x - steps, y, false)) setX(x - steps)
     }
-    setDirectionX(x-steps);
-    setDirectionY(y);
+    rotatePlayer(x - steps, y, 0, (steps / 2) / 2);
   }
 
   // eslint-disable-next-line
@@ -173,8 +171,7 @@ const GamePage = () => {
     if (y - steps >= 0) {
       if (!detectTree(x, y - steps, false)) setY(y - steps)
     }
-    setDirectionX(x);
-    setDirectionY(y-steps);
+    rotatePlayer(x, y - steps, (steps / 2) / 2, 0);
   }
 
   // eslint-disable-next-line
@@ -182,8 +179,14 @@ const GamePage = () => {
     if (y + steps <= gameHeight - steps) {
       if (!detectTree(x, y + steps, false)) setY(y + steps)
     }
+    rotatePlayer(x, y + steps, (steps / 2) / 2, steps / 2);
+  }
+
+  function rotatePlayer(x, y, headX, headY) {
     setDirectionX(x);
-    setDirectionY(y+steps);
+    setDirectionY(y);
+    setHeadX(headX);
+    setHeadY(headY);
   }
 
   function save() {
@@ -196,12 +199,20 @@ const GamePage = () => {
     console.log(`Width: ${gameWidth}, Height: ${gameHeight}`)
   }
 
-  const positionCursor = {
+  const positionPlayer = {
     width: steps,
     height: steps,
     left: x,
     top: y,
     backgroundColor: "lightblue",
+  }
+
+  const playerHead = {
+    width: steps / 2,
+    height: steps / 2,
+    backgroundColor: "blue",
+    marginLeft: headX,
+    marginTop: headY,
   }
 
   const positionApple = {
@@ -228,7 +239,7 @@ const GamePage = () => {
         <button className={`${ButtonStyle.button}`} onClick={save}>Save</button>
       </div>
       
-      <div className={style.navbar}>
+      <div className={style.navbarItems}>
         <div className={Game.pointsContainer}>
           <p style={{fontWeight:700, fontSize: 20}}>{points}</p>
           <div className={Game.coint}>$</div>
@@ -241,8 +252,8 @@ const GamePage = () => {
       
       {/*Contenedor del Juego */}
       <div className={Game.container}  style={dimensions}>
-        <div className={Game.cursor} style={positionCursor}></div>
-        <div className={Game.cursor} style={positionApple}></div>
+        <div className={Game.cursor} style={positionPlayer}><div style={playerHead}/></div>
+        <div className={Game.cursor} style={positionApple}/>
         <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} width={gameWidth} height={gameHeight} steps={steps}/>
       </div>
       {/*-------------------------------------------------*/}
@@ -264,7 +275,7 @@ const GamePage = () => {
         {/* <div>X: {x}, Y: {y}, AppleX: {appleX}, AppleY: {appleY}</div> */}
         
       </div>
-      <div className={Game.buttonReturn} style={{marginTop: "auto", alignSelf:"flex-end"}}><ButtonPath text="Return to Index Page" direction="../"/></div>
+      <div className={style.buttonReturn} style={{marginTop: "auto", alignSelf:"flex-end"}}><ButtonPath text="Return to Index Page" direction="../"/></div>
     </main>
     
   )

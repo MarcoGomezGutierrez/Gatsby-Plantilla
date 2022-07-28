@@ -79,7 +79,7 @@
     + "w" o "up arrow" -> Move player up
     + "d" o "right arrow" -> Move player right
     + "s" o "down arrow" -> Move player down
-    + "e" -> Chop wood (press three times)
+    + "e" -> Chop wood
 
 8.  **Learn more about Gatsby**
 

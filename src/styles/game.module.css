@@ -82,8 +82,10 @@
     position: absolute;
 }
 
-.buttonReturn {
-    position: absolute;
-    bottom: 0;
-    margin: 20px;
+.playerHead {
+    width: 5px;
+    height: 5px;
+    background-color: black;
+    margin-left: 5px;
+    margin-top: 2.5px;
 }
