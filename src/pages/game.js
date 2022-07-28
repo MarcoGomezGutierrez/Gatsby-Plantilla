@@ -15,6 +15,10 @@ const GamePage = () => {
   const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 1086px)").matches
   )
+  
+  const [matches1, setMatches1] = useState(
+    window.matchMedia("(min-width: 1086px)").matches1
+  )
 
   useEffect(() => {
     window
@@ -22,8 +26,14 @@ const GamePage = () => {
     .addEventListener('change', e => setMatches( e.matches ));
   }, []);
 
-  const [gameWidth, setGameWidth] = useState(parseInt(matches ? 1000 : 500));
-  const [gameHeight, setGameHeight] = useState(parseInt(matches ? 500 : 500));
+  useEffect(() => {
+    window
+    .matchMedia("(min-width: 700px)")
+    .addEventListener('change', e => setMatches( e.matches1 ));
+  }, []);
+
+  const [gameWidth, setGameWidth] = useState(parseInt(matches ? 1000 : matches1 ? 500 : 350));
+  const [gameHeight, setGameHeight] = useState(parseInt(matches ? 500 : matches1 ? 500 : 300));
 
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
@@ -269,7 +279,7 @@ const GamePage = () => {
       <div className={Game.container}  style={dimensions}>
         <div className={Game.cursor} style={positionPlayer}><div style={playerHead}/></div>
         <div className={Game.cursor} style={positionApple}/>
-        <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={matches ? 500 : 300} width={gameWidth} height={gameHeight} steps={steps}/>
+        <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={matches ? 500 : matches1 ? 300 : 100} width={gameWidth} height={gameHeight} steps={steps}/>
       </div>
       {/*-------------------------------------------------*/}
 
