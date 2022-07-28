@@ -4,7 +4,8 @@ import * as Game from "../styles/game.module.css"
 import * as ButtonStyle from "../styles/button.module.css"
 import ButtonPath from "../components/buttonPath.js"
 import Header from "../components/Header.js"
-import Trees  from "./trees.js"
+import Trees  from "../components/trees.js"
+import weaponImage from "../images/utils/weaponIcon.png"
 
 
 // markup
@@ -15,10 +16,6 @@ const GamePage = () => {
   const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 1086px)").matches
   )
-  
-  const [matches1, setMatches1] = useState(
-    window.matchMedia("(min-width: 1086px)").matches1
-  )
 
   useEffect(() => {
     window
@@ -26,14 +23,8 @@ const GamePage = () => {
     .addEventListener('change', e => setMatches( e.matches ));
   }, []);
 
-  useEffect(() => {
-    window
-    .matchMedia("(min-width: 700px)")
-    .addEventListener('change', e => setMatches( e.matches1 ));
-  }, []);
-
-  const [gameWidth, setGameWidth] = useState(parseInt(matches ? 1000 : matches1 ? 500 : 350));
-  const [gameHeight, setGameHeight] = useState(parseInt(matches ? 500 : matches1 ? 500 : 300));
+  const [gameWidth, setGameWidth] = useState(parseInt(matches ? 1200 : 350));
+  const [gameHeight, setGameHeight] = useState(parseInt(matches ? 600 : 300));
 
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
@@ -56,6 +47,7 @@ const GamePage = () => {
   const rightRef = useRef(null);
   const upRef = useRef(null);
   const downRef = useRef(null);
+  const chopRef = useRef(null);
 
   function getTreesFromChild(valor) {
     setTrees(valor)
@@ -90,13 +82,18 @@ const GamePage = () => {
       } else if (key === 38 || key === 87) {
         upRef.current.style.background = '#7863EA';
         arriba();
+      } else if (key === 69) {
+        chopRef.current.style.background = '#8FFDCB';
+        chopRef.current.style.backgroundImage = `url(${weaponImage})`
+        chopRef.current.style.backgroundRepeat = 'no-repeat';
+        chopRef.current.style.backgroundPosition = 'center';
       }
     }
     document.addEventListener("keydown", keyDownCallBack);
 
     return () => document.removeEventListener("keydown", keyDownCallBack);
 
-  }, [x, y, steps, headX, headY, rightRef, leftRef, downRef, upRef, directionX, directionY, abajo, arriba, derecha, izquierda]);
+  }, [x, y, steps, headX, headY, rightRef, leftRef, downRef, upRef, chopRef, directionX, directionY, abajo, arriba, derecha, izquierda]);
 
 
   useEffect(() => {
@@ -111,6 +108,10 @@ const GamePage = () => {
       } else if (key === 38 || key === 87) {
         upRef.current.style.background = '#1c0c74';
       } else if (key === 69) {
+        chopRef.current.style.background = '#0FA461';
+        chopRef.current.style.backgroundImage = `url(${weaponImage})`;
+        chopRef.current.style.backgroundRepeat = 'no-repeat';
+        chopRef.current.style.backgroundPosition = 'center';
         chopWood();
       }
     }
@@ -254,15 +255,23 @@ const GamePage = () => {
     minHeight: gameHeight,
   }
 
+  const imageWeapon = {
+    width: 70,
+    height: 70,
+    borderRadius: 100,
+    border: '5px solid #137247',
+    backgroundColor: '#0FA461',
+    cursor: 'pointer',
+    backgroundImage: `url(${weaponImage})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+  }
+
   return (
     <main >
       <Header headerText="GAME"/>
-      {/*<div className={style.navbar}>
-        <p>Width: <input id="1" type="number" name="width" required minLength="4" maxLength="8" size="10"/></p>
-        <p>Height: <input id="2" type="number" name="height" required minLength="4" maxLength="8" size="10"/></p>
-        <button className={`${ButtonStyle.button}`} onClick={save}>Save</button>
-      </div>*/}
       
+      {/*Monedas, madera y boton refresh*/}
       <div className={style.navbarItems}>
         <div className={Game.pointsContainer}>
           <p style={{fontWeight:700, fontSize: 20}}>{points}</p>
@@ -279,12 +288,11 @@ const GamePage = () => {
       <div className={Game.container}  style={dimensions}>
         <div className={Game.cursor} style={positionPlayer}><div style={playerHead}/></div>
         <div className={Game.cursor} style={positionApple}/>
-        <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={matches ? 500 : matches1 ? 300 : 100} width={gameWidth} height={gameHeight} steps={steps}/>
+        <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={matches ? 500 : 100} width={gameWidth} height={gameHeight} steps={steps}/>
       </div>
-      {/*-------------------------------------------------*/}
 
+      {/*Flechas y botones de accion*/}
       <div className={style.navbar}>
-         
         <div className={Game.rowsContainer}>
 
             <div className={Game.firstContainer}>
@@ -296,10 +304,13 @@ const GamePage = () => {
               <button ref={downRef} onClick={abajo} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8595;</button>
               <button ref={rightRef} onClick={derecha} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8594;</button>
             </div>
+
         </div>
-        {/* <div>X: {x}, Y: {y}, AppleX: {appleX}, AppleY: {appleY}</div> */}
+        <button ref={chopRef} style={imageWeapon} onClick={chopWood}></button>
         
       </div>
+
+      {/*Boton return to index */}
       <div className={style.buttonReturn} style={{marginTop: "auto", alignSelf:"flex-end"}}><ButtonPath text="Return to Index Page" direction="../"/></div>
     </main>
     
