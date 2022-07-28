@@ -6,7 +6,7 @@ import ButtonPath from "../components/buttonPath.js"
 import Header from "../components/Header.js"
 import Trees  from "../components/trees.js"
 import weaponImage from "../images/utils/weaponIcon.png"
-import Inventory from "./inventory"
+import Inventory from "../components/inventory.js"
 
 
 // markup
