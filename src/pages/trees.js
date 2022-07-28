@@ -11,7 +11,7 @@ class Tree {
 /* Este componente de React se encarga de Generar el número de árboles que especifiques por parametro*/
 const Trees = (props) => {
 
-    const numTrees = 500;
+    const numTrees = props.numTrees;
 
 
     function addTrees () {

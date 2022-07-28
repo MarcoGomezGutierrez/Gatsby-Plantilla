@@ -12,8 +12,18 @@ const GamePage = () => {
   
   const steps = 10;
 
-  const [gameWidth, setGameWidth] = useState(parseInt(1000));
-  const [gameHeight, setGameHeight] = useState(parseInt(500));
+  const [matches, setMatches] = useState(
+    window.matchMedia("(min-width: 1086px)").matches
+  )
+
+  useEffect(() => {
+    window
+    .matchMedia("(min-width: 1086px)")
+    .addEventListener('change', e => setMatches( e.matches ));
+  }, []);
+
+  const [gameWidth, setGameWidth] = useState(parseInt(matches ? 1000 : 500));
+  const [gameHeight, setGameHeight] = useState(parseInt(matches ? 500 : 500));
 
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
@@ -189,7 +199,7 @@ const GamePage = () => {
     setHeadY(headY);
   }
 
-  function save() {
+  /*function save() {
     var width = document.getElementById('1').value;
     var height = document.getElementById('2').value;
     setGameWidth(parseInt(width))
@@ -197,6 +207,10 @@ const GamePage = () => {
     setX(0)
     setY(0)
     console.log(`Width: ${gameWidth}, Height: ${gameHeight}`)
+  }*/
+
+  function refreshPage() {
+    window.location.reload(false);
   }
 
   const positionPlayer = {
@@ -233,11 +247,11 @@ const GamePage = () => {
   return (
     <main >
       <Header headerText="GAME"/>
-      <div className={style.navbar}>
+      {/*<div className={style.navbar}>
         <p>Width: <input id="1" type="number" name="width" required minLength="4" maxLength="8" size="10"/></p>
         <p>Height: <input id="2" type="number" name="height" required minLength="4" maxLength="8" size="10"/></p>
         <button className={`${ButtonStyle.button}`} onClick={save}>Save</button>
-      </div>
+      </div>*/}
       
       <div className={style.navbarItems}>
         <div className={Game.pointsContainer}>
@@ -248,13 +262,14 @@ const GamePage = () => {
           <p style={{fontWeight:700, fontSize: 20}}>{wood}</p>
           <div className={Game.wood}/>
         </div>
+        <button className={`${ButtonStyle.button}`} onClick={refreshPage}>Refresh Page &#8635;</button>
       </div>
       
       {/*Contenedor del Juego */}
       <div className={Game.container}  style={dimensions}>
         <div className={Game.cursor} style={positionPlayer}><div style={playerHead}/></div>
         <div className={Game.cursor} style={positionApple}/>
-        <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} width={gameWidth} height={gameHeight} steps={steps}/>
+        <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={matches ? 500 : 300} width={gameWidth} height={gameHeight} steps={steps}/>
       </div>
       {/*-------------------------------------------------*/}
 
