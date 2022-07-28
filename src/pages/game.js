@@ -6,6 +6,7 @@ import ButtonPath from "../components/buttonPath.js"
 import Header from "../components/Header.js"
 import Trees  from "../components/trees.js"
 import weaponImage from "../images/utils/weaponIcon.png"
+import Inventory from "./inventory"
 
 
 // markup
@@ -284,12 +285,19 @@ const GamePage = () => {
         <button className={`${ButtonStyle.button}`} onClick={refreshPage}>Refresh Page &#8635;</button>
       </div>
       
-      {/*Contenedor del Juego */}
-      <div className={Game.container}  style={dimensions}>
-        <div className={Game.cursor} style={positionPlayer}><div style={playerHead}/></div>
-        <div className={Game.cursor} style={positionApple}/>
-        <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={matches ? 500 : 100} width={gameWidth} height={gameHeight} steps={steps}/>
+      <div className={Game.navbarGame}>
+        <Inventory/>
+        {/*Contenedor del Juego */}
+        <div className={Game.container}  style={dimensions}>
+          <div className={Game.cursor} style={positionPlayer}><div style={playerHead}/></div>
+          <div className={Game.cursor} style={positionApple}/>
+          <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={matches ? 500 : 100} width={gameWidth} height={gameHeight} steps={steps}/>
+        </div>
+
+        <Inventory/>
+
       </div>
+      
 
       {/*Flechas y botones de accion*/}
       <div className={style.navbarItems}>
