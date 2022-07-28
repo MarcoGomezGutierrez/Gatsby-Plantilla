@@ -292,7 +292,7 @@ const GamePage = () => {
       </div>
 
       {/*Flechas y botones de accion*/}
-      <div className={style.navbar}>
+      <div className={style.navbarItems}>
         <div className={Game.rowsContainer}>
 
             <div className={Game.firstContainer}>
