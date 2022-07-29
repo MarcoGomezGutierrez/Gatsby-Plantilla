@@ -22,7 +22,8 @@ const GamePage = () => {
 
 
   function getGameWidth() {
-    if (width < 400) {
+    return multiple(parseInt(width * 0.75));
+    /*if (width < 400) {
       return 250;
     } else if (width < 700) {
       return 500;
@@ -30,14 +31,14 @@ const GamePage = () => {
       return 1000;
     } else {
       return 1200;
-    }
+    }*/
   }
 
   function getGameHeight() {
     if (width < 400) {
-      return 250;
+      return 200;
     } else if (width < 700) {
-      return 450;
+      return 250;
     } else if (width < 1086) {
       return 500;
     } else {
