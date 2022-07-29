@@ -64,6 +64,10 @@
       ```
       $ git pull https://github.com/MarcoGomezGutierrez/Gatsby-Plantilla.git Formacion-1
       ```
+    - Change repository.
+      ```
+      $ git remote set-url origin https://github.com/MarcoGomezGutierrez/Gatsby-Plantilla.git
+      ```
 
 6. **Deploy Local Server**
 
