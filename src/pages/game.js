@@ -22,7 +22,8 @@ const GamePage = () => {
 
 
   function getGameWidth() {
-    if (width < 400) {
+    return multiple(parseInt(width * 0.75));
+    /*if (width < 400) {
       return 250;
     } else if (width < 700) {
       return 500;
@@ -30,14 +31,14 @@ const GamePage = () => {
       return 1000;
     } else {
       return 1200;
-    }
+    }*/
   }
 
   function getGameHeight() {
     if (width < 400) {
-      return 250;
+      return 200;
     } else if (width < 700) {
-      return 450;
+      return 250;
     } else if (width < 1086) {
       return 500;
     } else {
@@ -325,7 +326,7 @@ const GamePage = () => {
       </div>
       
       <div className={Game.navbarGame}>
-        <Inventory/>
+        {/**<Inventory/>*/}
         {/*Contenedor del Juego */}
         <div className={Game.container}  style={dimensions}>
           <div className={Game.cursor} style={positionPlayer}><div style={playerHead}/></div>
@@ -333,7 +334,7 @@ const GamePage = () => {
           <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={getGameNumTrees()} width={gameWidth} height={gameHeight} steps={steps}/>
         </div>
 
-        <Inventory/>
+        {/**<Inventory/>*/}
 
       </div>
       
