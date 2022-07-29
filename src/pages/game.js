@@ -7,25 +7,64 @@ import Header from "../components/Header.js"
 import Trees  from "../components/trees.js"
 import weaponImage from "../images/utils/weaponIcon.png"
 import Inventory from "../components/inventory.js"
+import  useWindowDimensions  from "../components/windowDimension.js"
 
 
 // markup
 const GamePage = () => {
   
   const steps = 10;
+  const { height, width } = useWindowDimensions();
 
-  const [matches, setMatches] = useState(
+ /* const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 1086px)").matches
-  )
+  )*/
 
-  useEffect(() => {
+
+  function getGameWidth() {
+    if (width < 400) {
+      return 250;
+    } else if (width < 700) {
+      return 500;
+    } else if (width < 1086) {
+      return 1000;
+    } else {
+      return 1200;
+    }
+  }
+
+  function getGameHeight() {
+    if (width < 400) {
+      return 250;
+    } else if (width < 700) {
+      return 450;
+    } else if (width < 1086) {
+      return 500;
+    } else {
+      return 600;
+    }
+  }
+
+  function getGameNumTrees() {
+    if (width < 400) {
+      return 100;
+    } else if (width < 700) {
+      return 200;
+    } else if (width < 1086) {
+      return 300;
+    } else {
+      return 500;
+    }
+  }
+
+ /* useEffect(() => {
     window
     .matchMedia("(min-width: 1086px)")
     .addEventListener('change', e => setMatches( e.matches ));
-  }, []);
+  }, []);*/
 
-  const [gameWidth, setGameWidth] = useState(parseInt(matches ? 1200 : 350));
-  const [gameHeight, setGameHeight] = useState(parseInt(matches ? 600 : 300));
+  const [gameWidth, setGameWidth] = useState(getGameWidth());
+  const [gameHeight, setGameHeight] = useState(getGameHeight());
 
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
@@ -50,7 +89,7 @@ const GamePage = () => {
   const downRef = useRef(null);
   const chopRef = useRef(null);
 
-  function getTreesFromChild(valor) {
+  function getTreesFromChild(valor) { /*Call Back Child from Parent */
     setTrees(valor)
   }
 
@@ -291,7 +330,7 @@ const GamePage = () => {
         <div className={Game.container}  style={dimensions}>
           <div className={Game.cursor} style={positionPlayer}><div style={playerHead}/></div>
           <div className={Game.cursor} style={positionApple}/>
-          <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={matches ? 500 : 100} width={gameWidth} height={gameHeight} steps={steps}/>
+          <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={getGameNumTrees()} width={gameWidth} height={gameHeight} steps={steps}/>
         </div>
 
         <Inventory/>
