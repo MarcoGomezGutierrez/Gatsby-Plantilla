@@ -2,14 +2,16 @@ import React, {useState, useEffect, useRef} from "react"
 import * as style from "../styles/index.module.css"
 import * as Game from "../styles/game.module.css"
 import * as ButtonStyle from "../styles/button.module.css"
-import ButtonPath from "../components/buttonPath.js"
 import Header from "../components/Header.js"
 import Trees  from "../components/trees.js"
 import weaponImage from "../images/utils/weaponIcon.png"
-import Inventory from "../components/inventory.js"
+import backpack from "../images/utils/backpack.png"
 import  useWindowDimensions  from "../components/windowDimension.js"
 import Menu from "../components/menu.js"
+//import InventoryCraftTable from "../components/inventoryCraftTable.js"
 
+import CraftTable from "../components/craftTable.js"
+import Inventory from "../components/inventory.js"
 
 // markup
 const GamePage = () => {
@@ -282,6 +284,7 @@ const GamePage = () => {
     backgroundColor: '#0FA461',
     cursor: 'pointer',
     backgroundImage: `url(${weaponImage})`,
+    imageRendering: 'pixelated',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
   }
@@ -292,7 +295,21 @@ const GamePage = () => {
     borderRadius: 100,
     border: '5px solid #137247',
     backgroundColor: '#0FA461',
+    cursor: 'pointer'
+}
+
+  const buttonBackpack = {
+    backgroundImage: `url(${backpack})`,
+    backgroundSize: 70,
+    width: 70,
+    height: 70,
+    imageRendering: 'pixelated',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    border: 'none',
     cursor: 'pointer',
+    textDecoration: 'none',
+    display: 'inline-block'
   }
 
   function hidden() {
@@ -301,6 +318,45 @@ const GamePage = () => {
 
   function visible() {
     inventoryRef.current.style.visibility = 'visible';
+  }
+
+  const Desktop = () => {
+    return (
+      <div  ref={inventoryRef} className={Game.containerInventory}>
+        <Inventory/>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignContent: 'center',
+          alignItems: 'center',
+        }}>
+          <button style={buttonRadius} onClick={hidden}/>
+          <div style={{position: 'relative', display: 'flex', alignItems: 'center', width: 155, height:340, marginRight: 10}}>
+            <CraftTable/>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const Mobile = () => {
+    return (
+      <div  ref={inventoryRef} className={Game.containerInventory}>
+        <div style={{display:'flex', flexDirection: 'column', gap: 10, alignItems:'center'}}>
+          <Inventory/>
+          <CraftTable/>
+        </div>
+                
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignContent: 'center',
+          alignItems: 'center',
+        }}>
+          <button style={buttonRadius} onClick={hidden}></button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -350,14 +406,12 @@ const GamePage = () => {
           
         </div>
         <div className={style.navbarItems}>
-          <button className={ButtonStyle.button} style={{marginTop: 30}} onClick={visible}>Inventory</button>
+          <button style={buttonBackpack} onClick={visible}></button>
         </div>
 
       </div>
-      <div  ref={inventoryRef} className={Game.containerInventory}>
-        <Inventory/>
-        <button style={buttonRadius} onClick={hidden}></button>
-      </div>
+      {width > 700 ? <Desktop/> : <Mobile/>}
+      {/*<InventoryCraftTable width={width}/>*/}
       
     </main>
     
