@@ -10,7 +10,7 @@ const Inventory = () => {
         this.numItems = numItems;
       }
     }
-    const numItems = 60;
+    const numItems = 40;
 
     const imageItem = {
       empty: '',

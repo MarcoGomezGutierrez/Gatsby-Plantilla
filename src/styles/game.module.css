@@ -98,17 +98,33 @@
     flex: 3;
 }
 
+.containerInventory {
+    border: 3px solid rgb(43, 41, 41);
+    background-color: rgb(112, 122, 92);
+    padding: 5px;
+    visibility: hidden;
+    position: absolute;
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    top: 25%;
+}
+
 .inventory {
     display: grid;
     grid-template-columns: 50px 50px 50px 50px 50px;
-    grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
-    flex: 1;
-    margin-left: 50px;
-    margin-right: 50px;
+    grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px;
+    margin-right: 10px;
     border: 5px solid rgb(102, 62, 13);
     width: 250px;
-    height: 600px;
+    height: 400px;
     background-color: rgb(221, 94, 94);
+
+    /*position: absolute;
+    top: 50%;
+    margin: 0 auto;*/
+    /*margin-top: 400px;*/
 }
 
 .gapInventory {

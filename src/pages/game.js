@@ -70,6 +70,7 @@ const GamePage = () => {
   const upRef = useRef(null);
   const downRef = useRef(null);
   const chopRef = useRef(null);
+  const inventoryRef = useRef(null);
 
   function getTreesFromChild(valor) { /*Call Back Child from Parent */
     setTrees(valor)
@@ -285,6 +286,23 @@ const GamePage = () => {
     backgroundPosition: 'center',
   }
 
+  const buttonRadius = {
+    width: 70,
+    height: 70,
+    borderRadius: 100,
+    border: '5px solid #137247',
+    backgroundColor: '#0FA461',
+    cursor: 'pointer',
+  }
+
+  function hidden() {
+    inventoryRef.current.style.visibility = 'hidden';
+  }
+
+  function visible() {
+    inventoryRef.current.style.visibility = 'visible';
+  }
+
   return (
     <main >
       <Header headerText="GAME"/>
@@ -309,8 +327,6 @@ const GamePage = () => {
           <div className={Game.cursor} style={positionApple}/>
           <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={getGameNumTrees()} width={gameWidth} height={gameHeight} steps={steps}/>
         </div>
-
-
       </div>
       
 
@@ -334,8 +350,13 @@ const GamePage = () => {
           
         </div>
         <div className={style.navbarItems}>
-          <button className={ButtonStyle.button} style={{marginTop: 30}}>Inventory</button>
+          <button className={ButtonStyle.button} style={{marginTop: 30}} onClick={visible}>Inventory</button>
         </div>
+
+      </div>
+      <div  ref={inventoryRef} className={Game.containerInventory}>
+        <Inventory/>
+        <button style={buttonRadius} onClick={hidden}></button>
       </div>
       
     </main>
