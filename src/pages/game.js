@@ -325,7 +325,7 @@ const GamePage = () => {
       </div>
       
       <div className={Game.navbarGame}>
-        <Inventory/>
+        {/**<Inventory/>*/}
         {/*Contenedor del Juego */}
         <div className={Game.container}  style={dimensions}>
           <div className={Game.cursor} style={positionPlayer}><div style={playerHead}/></div>
@@ -333,7 +333,7 @@ const GamePage = () => {
           <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={getGameNumTrees()} width={gameWidth} height={gameHeight} steps={steps}/>
         </div>
 
-        <Inventory/>
+        {/**<Inventory/>*/}
 
       </div>
       
