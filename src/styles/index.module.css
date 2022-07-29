@@ -76,6 +76,15 @@ ul, ol {
     display: block;
 }
 
+.menu li div {
+    background-color: rgb(37, 173, 117);
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 10px 12px;
+    display: block;
+}
+
 .menu li a:hover {
     background-color: #2fbb2a;
 }

@@ -1,6 +1,5 @@
 import * as React from "react"
 import * as style from "../styles/index.module.css"
-import ButtonPath from "../components/buttonPath.js"
 import Header from "../components/Header"
 import Menu from "../components/menu.js"
 

@@ -10,7 +10,7 @@ const Menu = () => {
         <div className={style.menu}>
         <ul>
           <li>
-            <a href="">&#9776;</a>
+            <div>&#9776;</div>
             <ul>
               <li><a onClick={refreshPage} href="">Refresh</a></li>
               <li><a href="../">Return to Index</a></li>
