@@ -315,29 +315,29 @@ const GamePage = () => {
       
 
       {/*Flechas y botones de accion*/}
-      <div className={style.navbarItems}>
-        <div className={Game.rowsContainer}>
+      <div className={style.navbar}>
+        <div className={style.navbarItems}>
+          <div className={Game.rowsContainer}>
 
-            <div className={Game.firstContainer}>
-              <button ref={upRef} onClick={arriba} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8593;</button>
-            </div>
-            
-            <div className={Game.secondContainer}>
-              <button ref={leftRef} onClick={izquierda} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8592;</button>
-              <button ref={downRef} onClick={abajo} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8595;</button>
-              <button ref={rightRef} onClick={derecha} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8594;</button>
-            </div>
+              <div className={Game.firstContainer}>
+                <button ref={upRef} onClick={arriba} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8593;</button>
+              </div>
+              
+              <div className={Game.secondContainer}>
+                <button ref={leftRef} onClick={izquierda} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8592;</button>
+                <button ref={downRef} onClick={abajo} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8595;</button>
+                <button ref={rightRef} onClick={derecha} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8594;</button>
+              </div>
 
+          </div>
+          <button ref={chopRef} style={imageWeapon} onClick={chopWood}></button>
+          
         </div>
-        <button ref={chopRef} style={imageWeapon} onClick={chopWood}></button>
-        
+        <div className={style.navbarItems}>
+          <button className={ButtonStyle.button} style={{marginTop: 30}}>Inventory</button>
+        </div>
       </div>
-
-      {/*Boton return to index */}
-      {/*<div className={style.buttonReturn} style={{marginTop: "auto", alignSelf:"flex-end"}}>
-        <button className={`${ButtonStyle.button}`} onClick={refreshPage}>Refresh Page &#8635;</button>
-        <ButtonPath text="Return to Index Page" direction="../"/>
-  </div>*/}
+      
     </main>
     
   )
