@@ -50,17 +50,53 @@
     margin: 20px;
 }
 
+.menu {
+    margin: auto;
+    width: 100px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    right: 0; 
+    margin: 20px;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+.menu > li {
+    float: left;
+}
+
+.menu li a {
+    background-color: rgb(37, 173, 117);
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 12px;
+    display: block;
+}
+
+.menu li a:hover {
+    background-color: #2fbb2a;
+}
+
+.menu li ul {
+    display: none;
+    position: absolute;
+    min-width: 200px;
+}
+
+.menu li:hover > ul {
+    display: block;
+    left: -140px;
+}
+
+
 /*Depende de la resolución de un dispositivo*/
 @media (max-width: 768px) {
     .navbar {    
         width: 100%;    
         flex-direction: column;  
-    }
-
-    .buttonReturn {
-        position: static;
-        margin: 20px;
-        bottom: 0;
     }
 }
 

@@ -2,13 +2,14 @@ import * as React from "react"
 import * as style from "../styles/index.module.css"
 import ButtonPath from "../components/buttonPath.js"
 import Header from "../components/Header"
-
+import Menu from "../components/menu.js"
 
 // markup
 const OtherPage = () => {
   return (
     <main>
       <Header headerText="INFO PAGE"/>
+      <Menu/>
       <p className={style.p}>El archivo "global.css" nos sirve para configurar un estilo global para toda la páginas de nuestro proyecto. 
         De estas forma para que Gatsby lo aplique debe de haber un archivo en la raiz de nuestro proyecto llamado "gatsby-browser.js" de esta forma y 
         poniendo en la consola el comando siguiente: 
@@ -24,7 +25,6 @@ const OtherPage = () => {
         <br/> &nbsp;&nbsp;&nbsp;&nbsp; setCount &#40; count + 1 &#41; 
         <br/> &#125;   
       </div>
-      <div className={style.buttonReturn}  style={{marginTop: "auto", alignSelf:"flex-end"}}><ButtonPath text="Return to Index Page" direction="../"/></div>
     </main>
     
   )

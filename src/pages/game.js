@@ -8,6 +8,7 @@ import Trees  from "../components/trees.js"
 import weaponImage from "../images/utils/weaponIcon.png"
 import Inventory from "../components/inventory.js"
 import  useWindowDimensions  from "../components/windowDimension.js"
+import Menu from "../components/menu.js"
 
 
 // markup
@@ -16,22 +17,8 @@ const GamePage = () => {
   const steps = 10;
   const  width  = useWindowDimensions();
 
- /* const [matches, setMatches] = useState(
-    window.matchMedia("(min-width: 1086px)").matches
-  )*/
-
-
   function getGameWidth() {
-    return multiple(parseInt(width * 0.75));
-    /*if (width < 400) {
-      return 250;
-    } else if (width < 700) {
-      return 500;
-    } else if (width < 1086) {
-      return 1000;
-    } else {
-      return 1200;
-    }*/
+    return multiple(parseInt(width * 0.60));
   }
 
   function getGameHeight() {
@@ -57,12 +44,6 @@ const GamePage = () => {
       return 500;
     }
   }
-
- /* useEffect(() => {
-    window
-    .matchMedia("(min-width: 1086px)")
-    .addEventListener('change', e => setMatches( e.matches ));
-  }, []);*/
 
   const [gameWidth, setGameWidth] = useState(getGameWidth());
   const [gameHeight, setGameHeight] = useState(getGameHeight());
@@ -261,10 +242,6 @@ const GamePage = () => {
     console.log(`Width: ${gameWidth}, Height: ${gameHeight}`)
   }*/
 
-  function refreshPage() {
-    window.location.reload(false);
-  }
-
   const positionPlayer = {
     width: steps,
     height: steps,
@@ -311,7 +288,7 @@ const GamePage = () => {
   return (
     <main >
       <Header headerText="GAME"/>
-      
+      <Menu/>
       {/*Monedas, madera y boton refresh*/}
       <div className={style.navbarItems}>
         <div className={Game.pointsContainer}>
@@ -322,11 +299,10 @@ const GamePage = () => {
           <p style={{fontWeight:700, fontSize: 20}}>{wood}</p>
           <div className={Game.wood}/>
         </div>
-        <button className={`${ButtonStyle.button}`} onClick={refreshPage}>Refresh Page &#8635;</button>
+        
       </div>
       
-      <div className={Game.navbarGame}>
-        {/**<Inventory/>*/}
+      <div>
         {/*Contenedor del Juego */}
         <div className={Game.container}  style={dimensions}>
           <div className={Game.cursor} style={positionPlayer}><div style={playerHead}/></div>
@@ -334,7 +310,6 @@ const GamePage = () => {
           <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={getGameNumTrees()} width={gameWidth} height={gameHeight} steps={steps}/>
         </div>
 
-        {/**<Inventory/>*/}
 
       </div>
       
@@ -359,7 +334,10 @@ const GamePage = () => {
       </div>
 
       {/*Boton return to index */}
-      <div className={style.buttonReturn} style={{marginTop: "auto", alignSelf:"flex-end"}}><ButtonPath text="Return to Index Page" direction="../"/></div>
+      {/*<div className={style.buttonReturn} style={{marginTop: "auto", alignSelf:"flex-end"}}>
+        <button className={`${ButtonStyle.button}`} onClick={refreshPage}>Refresh Page &#8635;</button>
+        <ButtonPath text="Return to Index Page" direction="../"/>
+  </div>*/}
     </main>
     
   )

@@ -45,8 +45,16 @@
 
     - Put in the console:
 
+      + If you want to see the result:
+
       ```
       $ npm run develop
+      ```
+
+      + If you want to build the aplication:
+
+      ```
+      $ npm run build
       ```
 
 
