@@ -44,8 +44,8 @@ const Inventory = () => {
 
     return (
         <div className={Game.inventory}>
-          {items.map(item => (
-                <PrintItem item={item.item} numItems={item.numItems} />
+          {items.map((item, index) => (
+                <PrintItem key={index} item={item.item} numItems={item.numItems} />
           ))}
         </div>
     )

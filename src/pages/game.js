@@ -14,7 +14,7 @@ import  useWindowDimensions  from "../components/windowDimension.js"
 const GamePage = () => {
   
   const steps = 10;
-  const { height, width } = useWindowDimensions();
+  const  width  = useWindowDimensions();
 
  /* const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 1086px)").matches

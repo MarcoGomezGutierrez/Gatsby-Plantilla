@@ -56,8 +56,8 @@ const Trees = (props) => {
 
     return (
         <div>
-            {trees.map(tree => (
-                <PrintTree x={tree.x} y={tree.y}/>
+            {trees.map((tree, index) => (
+                <PrintTree key={index} x={tree.x} y={tree.y}/>
             ))}
         </div>
         
