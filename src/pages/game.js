@@ -8,8 +8,6 @@ import weaponImage from "../images/utils/weaponIcon.png"
 import backpack from "../images/utils/backpack.png"
 import  useWindowDimensions  from "../components/windowDimension.js"
 import Menu from "../components/menu.js"
-//import InventoryCraftTable from "../components/inventoryCraftTable.js"
-
 import CraftTable from "../components/craftTable.js"
 import Inventory from "../components/inventory.js"
 
@@ -322,7 +320,7 @@ const GamePage = () => {
 
   const Desktop = () => {
     return (
-      <div  ref={inventoryRef} className={Game.containerInventory}>
+      <div  ref={inventoryRef} className={Game.middleContainer}>
         <Inventory/>
         <div style={{
           display: 'flex',
@@ -341,7 +339,7 @@ const GamePage = () => {
 
   const Mobile = () => {
     return (
-      <div  ref={inventoryRef} className={Game.containerInventory}>
+      <div  ref={inventoryRef} className={Game.middleContainer}>
         <div style={{display:'flex', flexDirection: 'column', gap: 10, alignItems:'center'}}>
           <Inventory/>
           <CraftTable/>
@@ -363,6 +361,7 @@ const GamePage = () => {
     <main >
       <Header headerText="GAME"/>
       <Menu/>
+
       {/*Monedas, madera y boton refresh*/}
       <div className={style.navbarItems}>
         <div className={Game.pointsContainer}>
@@ -373,11 +372,10 @@ const GamePage = () => {
           <p style={{fontWeight:700, fontSize: 20}}>{wood}</p>
           <div className={Game.wood}/>
         </div>
-        
       </div>
-      
+
+      {/*Contenedor del Juego */}
       <div>
-        {/*Contenedor del Juego */}
         <div className={Game.container}  style={dimensions}>
           <div className={Game.cursor} style={positionPlayer}><div style={playerHead}/></div>
           <div className={Game.cursor} style={positionApple}/>
@@ -406,12 +404,13 @@ const GamePage = () => {
           
         </div>
         <div className={style.navbarItems}>
-          <button style={buttonBackpack} onClick={visible}></button>
+          <button style={buttonBackpack} onClick={visible}/> {/*Backpack Inventory*/}
         </div>
 
       </div>
+
+      {/*Inventory*/}
       {width > 700 ? <Desktop/> : <Mobile/>}
-      {/*<InventoryCraftTable width={width}/>*/}
       
     </main>
     
