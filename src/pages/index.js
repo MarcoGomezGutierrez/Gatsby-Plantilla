@@ -3,6 +3,7 @@ import * as style from "../styles/index.module.css"
 import ButtonPath from "../components/buttonPath.js"
 import ButtonAction from "../components/buttonAction.js"
 import Header from "../components/Header.js"
+import Layaout from "../components/Layaout.js"
 
 
 // markup
@@ -19,7 +20,10 @@ const IndexPage = () => {
   }
 
   return (
-    <main>
+      <Layaout>
+
+      </Layaout>
+      /*
       <Header headerText="INDEX"/>
       <div className={style.navbar}>
         <ButtonPath text="Go to other page" direction="/other"/> 
@@ -27,8 +31,8 @@ const IndexPage = () => {
         <ButtonAction text="-" onClick={restar}/>
         <p>{count}</p>
         <ButtonAction text="+" onClick={sumar}/>
-      </div>
-    </main>
+  </div>*/
+  
     
   )
 }
