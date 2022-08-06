@@ -13,6 +13,8 @@ const Menu = () => {
             <div>&#9776;</div>
             <ul>
               <li><a onClick={refreshPage} href="">Refresh</a></li>
+              <li><a href="/game">Game 1</a></li>
+              <li><a href="/game">Game 2</a></li>
               <li><a href="../">Return to Index</a></li>
             </ul>
           </li>

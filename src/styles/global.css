@@ -3,9 +3,10 @@
 html {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to right, rgb(151, 255, 255), rgb(255, 255, 255));
-    color: rgb(29, 29, 29);
+    background: #565656;
+    color: rgb(255, 255, 255);
     font-family: 'Poppins', sans-serif;
+    position: relative;
 }
 
 main {

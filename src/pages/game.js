@@ -360,60 +360,58 @@ const GamePage = () => {
   return (
     <main >
       <Header headerText="GAME"/>
-      <Menu/>
-
-      {/*Monedas, madera y boton refresh*/}
-      <div className={style.navbarItems}>
-        <div className={Game.pointsContainer}>
-          <p style={{fontWeight:700, fontSize: 20}}>{points}</p>
-          <div className={Game.coint}>$</div>
-        </div>
-        <div className={Game.pointsContainer}>
-          <p style={{fontWeight:700, fontSize: 20}}>{wood}</p>
-          <div className={Game.wood}/>
-        </div>
-      </div>
-
-      {/*Contenedor del Juego */}
-      <div>
-        <div className={Game.container}  style={dimensions}>
-          <div className={Game.cursor} style={positionPlayer}><div style={playerHead}/></div>
-          <div className={Game.cursor} style={positionApple}/>
-          <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={getGameNumTrees()} width={gameWidth} height={gameHeight} steps={steps}/>
-        </div>
-      </div>
-      
-
-      {/*Flechas y botones de accion*/}
-      <div className={style.navbar}>
+      <div className={style.mainContainer}>
+        {/*Monedas, madera y boton refresh*/}
         <div className={style.navbarItems}>
-          <div className={Game.rowsContainer}>
-
-              <div className={Game.firstContainer}>
-                <button ref={upRef} onClick={arriba} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8593;</button>
-              </div>
-              
-              <div className={Game.secondContainer}>
-                <button ref={leftRef} onClick={izquierda} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8592;</button>
-                <button ref={downRef} onClick={abajo} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8595;</button>
-                <button ref={rightRef} onClick={derecha} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8594;</button>
-              </div>
-
+          <div className={Game.pointsContainer}>
+            <p style={{fontWeight:700, fontSize: 20}}>{points}</p>
+            <div className={Game.coint}>$</div>
           </div>
-          <button ref={chopRef} style={imageWeapon} onClick={chopWood}></button>
-          
-        </div>
-        <div className={style.navbarItems}>
-          <button style={buttonBackpack} onClick={visible}/> {/*Backpack Inventory*/}
+          <div className={Game.pointsContainer}>
+            <p style={{fontWeight:700, fontSize: 20}}>{wood}</p>
+            <div className={Game.wood}/>
+          </div>
         </div>
 
+        {/*Contenedor del Juego */}
+        <div>
+          <div className={Game.container}  style={dimensions}>
+            <div className={Game.cursor} style={positionPlayer}><div style={playerHead}/></div>
+            <div className={Game.cursor} style={positionApple}/>
+            <Trees getTreesFromChild={getTreesFromChild} multiple={multiple} RandomMinToMax={RandomMinToMax} numTrees={getGameNumTrees()} width={gameWidth} height={gameHeight} steps={steps}/>
+          </div>
+        </div>
+        
+
+        {/*Flechas y botones de accion*/}
+        <div className={style.navbar}>
+          <div className={style.navbarItems}>
+            <div className={Game.rowsContainer}>
+
+                <div className={Game.firstContainer}>
+                  <button ref={upRef} onClick={arriba} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8593;</button>
+                </div>
+                
+                <div className={Game.secondContainer}>
+                  <button ref={leftRef} onClick={izquierda} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8592;</button>
+                  <button ref={downRef} onClick={abajo} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8595;</button>
+                  <button ref={rightRef} onClick={derecha} className={`${ButtonStyle.button} ${Game.arrow}`}>&#8594;</button>
+                </div>
+
+            </div>
+            <button ref={chopRef} style={imageWeapon} onClick={chopWood}></button>
+            
+          </div>
+          <div className={style.navbarItems}>
+            <button style={buttonBackpack} onClick={visible}/> {/*Backpack Inventory*/}
+          </div>
+
+        </div>
+
+        {/*Inventory*/}
+        {width > 700 ? <Desktop/> : <Mobile/>}
       </div>
-
-      {/*Inventory*/}
-      {width > 700 ? <Desktop/> : <Mobile/>}
-      
     </main>
-    
   )
 }
 
