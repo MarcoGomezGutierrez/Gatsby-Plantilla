@@ -114,9 +114,14 @@
     - [HTML Colors](https://htmlcolorcodes.com/es/)
 
 
-10. **Animations**
+10. **Other**
 
     - [Animista](https://animista.net/)
+    - [Flexbox](https://flexbox.help)
+    - [Desarrollo Online HTML/CSS/JavaScript](https://codepen.io)
+    - [CSS](https://www.w3schools.com/cssref/sel_hover.asp)
+    - [CSS](https://www.w3schools.com/cssref/css_selectors.asp)
+
 
 11. **Comment warnings**
 
