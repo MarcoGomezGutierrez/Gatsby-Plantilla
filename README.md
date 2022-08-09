@@ -76,6 +76,10 @@
       ```
       $ git remote set-url origin https://github.com/MarcoGomezGutierrez/Gatsby-Plantilla.git
       ```
+    - Push new repository.
+      ```
+      $ git push -u origin main
+      ```
 
 6. **Deploy Local Server**
 
